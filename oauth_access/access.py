@@ -93,6 +93,9 @@ class OAuthAccess(object):
         parameters = {
             "oauth_callback": self.callback_url,
         }
+        if self.service == "google":
+            parameters['scope'] = " ".join(self.provider_scope)
+        
         client = oauth.Client(self.consumer)
         response, content = client.request(self.request_token_url,
             method = "POST",
