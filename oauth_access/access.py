@@ -112,7 +112,7 @@ class OAuthAccess(object):
     
     @property
     def callback_url(self):
-        current_site = Site.objects.get(pk=settings.SITE_ID)
+        current_site = Site.objects.get_current()
         # @@@ http fix
         base_url = "http://%s" % current_site.domain
         callback_url = reverse("oauth_access_callback", kwargs={
