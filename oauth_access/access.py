@@ -165,9 +165,12 @@ class OAuthAccess(object):
                     )
                 ).read()
                 response = cgi.parse_qs(raw_data)
+                expires = response.get("expires", None)
+                if expires:
+                    expires = int(expires[-1])
                 return OAuth20Token(
                     response["access_token"][-1],
-                    int(response["expires"][-1])
+                    expires
                 )
             else:
                 # @@@ this error case is not nice
