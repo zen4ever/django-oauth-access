@@ -17,4 +17,6 @@ class UserAssociation(models.Model):
         unique_together = [("user", "service")]
     
     def expired(self):
+        if not self.expires:
+            return True
         return datetime.datetime.now() < self.expires
